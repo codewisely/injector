@@ -213,6 +213,11 @@ private: System::Void injectButton_Click(System::Object^  sender, System::EventA
 		return;
 	}
 
+	if (!this->libraryBox1->Text->Contains(".dll")) {
+		MessageBox::Show("Invalid library selected!");
+		return;
+	}
+
 	if (Inject(this->processBox1->Text, this->libraryBox1->Text) == true) alreadyInjected = true;
 	else {
 		alreadyInjected = false;
