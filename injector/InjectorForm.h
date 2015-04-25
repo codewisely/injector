@@ -34,8 +34,8 @@ namespace injector {
 
 
 
-	internal: System::Windows::Forms::TextBox^  processBox1;
-	internal: System::Windows::Forms::TextBox^  libraryBox1;
+	private: System::Windows::Forms::TextBox^  processBox1;
+	private: System::Windows::Forms::TextBox^  libraryBox1;
 
 	private: System::Windows::Forms::GroupBox^  groupBox1;
 	private: System::Windows::Forms::GroupBox^  groupBox2;
