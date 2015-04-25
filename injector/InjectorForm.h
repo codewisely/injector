@@ -67,6 +67,7 @@ namespace injector {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(InjectorForm::typeid));
 			this->injectButton = (gcnew System::Windows::Forms::Button());
 			this->processBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->libraryBox1 = (gcnew System::Windows::Forms::TextBox());
@@ -182,7 +183,7 @@ namespace injector {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::SystemColors::ActiveCaption;
+			this->BackColor = System::Drawing::Color::LightSteelBlue;
 			this->ClientSize = System::Drawing::Size(314, 201);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label2);
@@ -191,6 +192,7 @@ namespace injector {
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->injectButton);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
 			this->Name = L"InjectorForm";
 			this->Text = L"injecTyran";
