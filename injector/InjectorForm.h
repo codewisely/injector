@@ -44,6 +44,7 @@ namespace injector {
 
 	private: System::Windows::Forms::Label^  label2;
 	private: System::Windows::Forms::Timer^  timer1;
+	private: System::Windows::Forms::Button^  button1;
 	private: System::ComponentModel::IContainer^  components;
 	protected:
 
@@ -75,6 +76,7 @@ namespace injector {
 			this->statusLabel = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
 			this->SuspendLayout();
@@ -166,12 +168,23 @@ namespace injector {
 			this->timer1->Interval = 600;
 			this->timer1->Tick += gcnew System::EventHandler(this, &InjectorForm::timer1_Tick);
 			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(248, 8);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(62, 24);
+			this->button1->TabIndex = 10;
+			this->button1->Text = L"About";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &InjectorForm::button1_Click);
+			// 
 			// InjectorForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ActiveCaption;
-			this->ClientSize = System::Drawing::Size(249, 201);
+			this->ClientSize = System::Drawing::Size(314, 201);
+			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->statusLabel);
 			this->Controls->Add(this->groupBox2);
@@ -249,6 +262,9 @@ private: System::Void processBox1_Click(System::Object^  sender, System::EventAr
 	Form^ procForm = gcnew ProcessForm();
 	procForm->ShowDialog();
 	processBox1->Text = ProcessForm::selection;
+}
+private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+	MessageBoxA(0, "injecTyran\nSimple DLL injector\n\n(C) tyranek 2015", "About...", MB_OK | MB_ICONINFORMATION | MB_TASKMODAL);
 }
 };
 }
