@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "ProcessForm.h"
 extern bool Inject(System::String^ process, System::String^ dll);
 
 namespace injector {
@@ -43,6 +44,7 @@ namespace injector {
 
 	private: System::Windows::Forms::Label^  label2;
 	private: System::Windows::Forms::Timer^  timer1;
+	private: System::Windows::Forms::Button^  button1;
 	private: System::ComponentModel::IContainer^  components;
 	protected:
 
@@ -65,6 +67,7 @@ namespace injector {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(InjectorForm::typeid));
 			this->injectButton = (gcnew System::Windows::Forms::Button());
 			this->processBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->libraryBox1 = (gcnew System::Windows::Forms::TextBox());
@@ -74,6 +77,7 @@ namespace injector {
 			this->statusLabel = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
 			this->SuspendLayout();
@@ -90,11 +94,14 @@ namespace injector {
 			// 
 			// processBox1
 			// 
-			this->processBox1->Cursor = System::Windows::Forms::Cursors::IBeam;
+			this->processBox1->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->processBox1->Location = System::Drawing::Point(6, 19);
 			this->processBox1->Name = L"processBox1";
+			this->processBox1->ReadOnly = true;
 			this->processBox1->Size = System::Drawing::Size(218, 20);
 			this->processBox1->TabIndex = 4;
+			this->processBox1->Text = L"<click to choose>";
+			this->processBox1->Click += gcnew System::EventHandler(this, &InjectorForm::processBox1_Click);
 			this->processBox1->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &InjectorForm::processBox1_KeyPress);
 			// 
 			// libraryBox1
@@ -159,21 +166,33 @@ namespace injector {
 			// timer1
 			// 
 			this->timer1->Enabled = true;
-			this->timer1->Interval = 500;
+			this->timer1->Interval = 600;
 			this->timer1->Tick += gcnew System::EventHandler(this, &InjectorForm::timer1_Tick);
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(248, 8);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(62, 24);
+			this->button1->TabIndex = 10;
+			this->button1->Text = L"About";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &InjectorForm::button1_Click);
 			// 
 			// InjectorForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::SystemColors::ActiveCaption;
-			this->ClientSize = System::Drawing::Size(249, 201);
+			this->BackColor = System::Drawing::Color::LightSteelBlue;
+			this->ClientSize = System::Drawing::Size(314, 201);
+			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->statusLabel);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->injectButton);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
 			this->Name = L"InjectorForm";
 			this->Text = L"injecTyran";
@@ -187,7 +206,7 @@ namespace injector {
 		}
 #pragma endregion
 
-		public: bool alreadyInjected;
+	public: bool alreadyInjected;
 
 private: System::Void libraryBox1_Click(System::Object^  sender, System::EventArgs^  e) {
 
@@ -196,11 +215,11 @@ private: System::Void libraryBox1_Click(System::Object^  sender, System::EventAr
 
 }
 
-		 void OnFileOk(System::Object ^sender, System::ComponentModel::CancelEventArgs ^e);
+	void OnFileOk(System::Object ^sender, System::ComponentModel::CancelEventArgs ^e);
 		 
 private: System::Void injectButton_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	if (this->processBox1->Text == "") {
+	if (this->processBox1->Text == "" || this->processBox1->Text == "<click to choose>") {
 		MessageBox::Show("Enter process name !");
 		return;
 	}
@@ -209,10 +228,14 @@ private: System::Void injectButton_Click(System::Object^  sender, System::EventA
 		return;
 	}
 
+	if (!this->libraryBox1->Text->Contains(".dll")) {
+		MessageBox::Show("Invalid library selected!");
+		return;
+	}
+
 	if (Inject(this->processBox1->Text, this->libraryBox1->Text) == true) alreadyInjected = true;
 	else {
 		alreadyInjected = false;
-		MessageBox::Show("Failed to inject DLL!");
 	}
 
 }
@@ -236,6 +259,14 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 		this->statusLabel->Text = "Not injected";
 		this->statusLabel->ForeColor = Color::Red;
 	}
+}
+private: System::Void processBox1_Click(System::Object^  sender, System::EventArgs^  e) {
+	Form^ procForm = gcnew ProcessForm();
+	procForm->ShowDialog();
+	processBox1->Text = ProcessForm::selection;
+}
+private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+	MessageBoxA(0, "injecTyran\nSimple DLL injector\n\n(C) tyranek 2015", "About...", MB_OK | MB_ICONINFORMATION | MB_TASKMODAL);
 }
 };
 }

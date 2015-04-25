@@ -21,9 +21,15 @@
     <ClCompile Include="Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ProcessForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InjectorForm.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessForm.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -31,5 +37,13 @@
     <EmbeddedResource Include="InjectorForm.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
+    <EmbeddedResource Include="ProcessForm.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="InjectorForm.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -56,12 +56,10 @@ bool Inject(System::String^ _procname, System::String^ _dllpath) {
 
 	DWORD procid = FindProcId(procname);
 
-	HANDLE hProc = _openprocess(PROCESS_VM_READ | PROCESS_VM_WRITE |
-		PROCESS_VM_OPERATION | PROCESS_CREATE_THREAD,
-		false, procid);
+	HANDLE hProc = _openprocess(PROCESS_ALL_ACCESS, false, procid);
 
 	if (!hProc) {
-		throw gcnew System::Exception("Process doesn't exist!");			// will be substituted with proper 'statusLabel' caption
+		MessageBoxA(0, "Process doesn't exist!", "ERROR", MB_OK | MB_ICONERROR | MB_TASKMODAL);
 		return false;
 	}
 
