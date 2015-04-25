@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "ProcessForm.h"
 extern bool Inject(System::String^ process, System::String^ dll);
 
 namespace injector {
@@ -33,8 +34,8 @@ namespace injector {
 
 
 
-	private: System::Windows::Forms::TextBox^  processBox1;
-	private: System::Windows::Forms::TextBox^  libraryBox1;
+	internal: System::Windows::Forms::TextBox^  processBox1;
+	internal: System::Windows::Forms::TextBox^  libraryBox1;
 
 	private: System::Windows::Forms::GroupBox^  groupBox1;
 	private: System::Windows::Forms::GroupBox^  groupBox2;
@@ -90,11 +91,14 @@ namespace injector {
 			// 
 			// processBox1
 			// 
-			this->processBox1->Cursor = System::Windows::Forms::Cursors::IBeam;
+			this->processBox1->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->processBox1->Location = System::Drawing::Point(6, 19);
 			this->processBox1->Name = L"processBox1";
+			this->processBox1->ReadOnly = true;
 			this->processBox1->Size = System::Drawing::Size(218, 20);
 			this->processBox1->TabIndex = 4;
+			this->processBox1->Text = L"<click to choose>";
+			this->processBox1->Click += gcnew System::EventHandler(this, &InjectorForm::processBox1_Click);
 			this->processBox1->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &InjectorForm::processBox1_KeyPress);
 			// 
 			// libraryBox1
@@ -159,7 +163,7 @@ namespace injector {
 			// timer1
 			// 
 			this->timer1->Enabled = true;
-			this->timer1->Interval = 500;
+			this->timer1->Interval = 600;
 			this->timer1->Tick += gcnew System::EventHandler(this, &InjectorForm::timer1_Tick);
 			// 
 			// InjectorForm
@@ -187,7 +191,7 @@ namespace injector {
 		}
 #pragma endregion
 
-		public: bool alreadyInjected;
+	public: bool alreadyInjected;
 
 private: System::Void libraryBox1_Click(System::Object^  sender, System::EventArgs^  e) {
 
@@ -196,11 +200,11 @@ private: System::Void libraryBox1_Click(System::Object^  sender, System::EventAr
 
 }
 
-		 void OnFileOk(System::Object ^sender, System::ComponentModel::CancelEventArgs ^e);
+	void OnFileOk(System::Object ^sender, System::ComponentModel::CancelEventArgs ^e);
 		 
 private: System::Void injectButton_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	if (this->processBox1->Text == "") {
+	if (this->processBox1->Text == "" || this->processBox1->Text == "<click to choose>") {
 		MessageBox::Show("Enter process name !");
 		return;
 	}
@@ -212,7 +216,6 @@ private: System::Void injectButton_Click(System::Object^  sender, System::EventA
 	if (Inject(this->processBox1->Text, this->libraryBox1->Text) == true) alreadyInjected = true;
 	else {
 		alreadyInjected = false;
-		MessageBox::Show("Failed to inject DLL!");
 	}
 
 }
@@ -236,6 +239,11 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 		this->statusLabel->Text = "Not injected";
 		this->statusLabel->ForeColor = Color::Red;
 	}
+}
+private: System::Void processBox1_Click(System::Object^  sender, System::EventArgs^  e) {
+	Form^ procForm = gcnew ProcessForm();
+	procForm->ShowDialog();
+	processBox1->Text = ProcessForm::selection;
 }
 };
 }

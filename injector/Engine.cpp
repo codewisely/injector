@@ -61,7 +61,7 @@ bool Inject(System::String^ _procname, System::String^ _dllpath) {
 		false, procid);
 
 	if (!hProc) {
-		throw gcnew System::Exception("Process doesn't exist!");			// will be substituted with proper 'statusLabel' caption
+		MessageBoxA(0, "Process doesn't exist!", "ERROR", MB_OK | MB_ICONERROR | MB_TASKMODAL);
 		return false;
 	}
 
