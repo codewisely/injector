@@ -67,6 +67,7 @@ namespace injector {
 			this->listBox1->Name = L"listBox1";
 			this->listBox1->Size = System::Drawing::Size(280, 199);
 			this->listBox1->TabIndex = 0;
+			this->listBox1->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &ProcessForm::listBox1_KeyPress);
 			// 
 			// button1
 			// 
@@ -117,5 +118,8 @@ namespace injector {
 		selection = listBox1->SelectedItem->ToString();
 		delete this;
 	}
-	};
+	private: System::Void listBox1_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+		if (e->KeyChar == (char)0x0D) button1_Click(sender, e);
+	}
+};
 }
