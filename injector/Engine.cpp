@@ -12,7 +12,7 @@ typedef HANDLE(__stdcall *__OpenProcess)(DWORD, bool, DWORD);
 __OpenProcess _openprocess = (__OpenProcess)_getaddr("kernel32.dll", "OpenProcess");
 
 typedef HANDLE(__stdcall *__VirtualAllocEx)(HANDLE, LPVOID, SIZE_T, DWORD, DWORD);
-__VirtualAllocEx _vallocex = (__VirtualAllocEx)_getaddr("kernel32.dll", "VirtualAllocEx");
+__VirtualAllocEx _valloc = (__VirtualAllocEx)_getaddr("kernel32.dll", "VirtualAllocEx");
 
 typedef BOOL(__stdcall *__WriteProcessMemory)(HANDLE, LPVOID, LPCVOID, SIZE_T, SIZE_T*);
 __WriteProcessMemory _writemem = (__WriteProcessMemory)_getaddr("kernel32.dll", "WriteProcessMemory");
@@ -63,7 +63,7 @@ bool Inject(System::String^ _procname, System::String^ _dllpath) {
 		return false;
 	}
 
-	LPVOID paramAddr = _vallocex(hProc, 0, strlen(dllpath) + 1, MEM_COMMIT, PAGE_READWRITE);
+	LPVOID paramAddr = _valloc(hProc, 0, strlen(dllpath) + 1, MEM_COMMIT, PAGE_READWRITE);
 	volatile bool written = _writemem(hProc, paramAddr, dllpath, strlen(dllpath) + 1, 0);
 	_remotethread(hProc, 0, 0, (LPTHREAD_START_ROUTINE)_loadlib, paramAddr, 0, 0);
 	_closehandle(hProc);
