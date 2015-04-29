@@ -242,12 +242,12 @@ private: System::Void injectButton_Click(System::Object^  sender, System::EventA
 
 private: System::Void processBox1_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
 
-	if (e->KeyChar == (char)0x0D) injectButton_Click(sender, e);
+	if (e->KeyChar == (char)0x0D || e->KeyChar == (char)0x20) processBox1_Click(sender, e);
 
 }
 private: System::Void libraryBox1_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
 
-	if (e->KeyChar == (char)0x0D) injectButton_Click(sender, e);
+	if (e->KeyChar == (char)0x0D || e->KeyChar == (char)0x20) libraryBox1_Click(sender, e);
 
 }
 private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {

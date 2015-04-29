@@ -119,7 +119,8 @@ namespace injector {
 		delete this;
 	}
 	private: System::Void listBox1_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
-		if (e->KeyChar == (char)0x0D) button1_Click(sender, e);
+		if (e->KeyChar == (char)0x0D || e->KeyChar == (char)0x20) button1_Click(sender, e);
+		if (e->KeyChar == (char)0x1B) delete this;
 	}
 };
 }
