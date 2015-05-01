@@ -44,7 +44,11 @@ namespace injector {
 
 	private: System::Windows::Forms::Label^  label2;
 	private: System::Windows::Forms::Timer^  timer1;
-	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Button^  aboutButton;
+
+
+
+
 	private: System::ComponentModel::IContainer^  components;
 	protected:
 
@@ -77,13 +81,14 @@ namespace injector {
 			this->statusLabel = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->aboutButton = (gcnew System::Windows::Forms::Button());
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// injectButton
 			// 
+			this->injectButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->injectButton->Location = System::Drawing::Point(8, 136);
 			this->injectButton->Name = L"injectButton";
 			this->injectButton->Size = System::Drawing::Size(230, 31);
@@ -145,7 +150,7 @@ namespace injector {
 			this->statusLabel->AutoSize = true;
 			this->statusLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->statusLabel->ForeColor = System::Drawing::Color::Yellow;
+			this->statusLabel->ForeColor = System::Drawing::Color::Black;
 			this->statusLabel->Location = System::Drawing::Point(80, 176);
 			this->statusLabel->Name = L"statusLabel";
 			this->statusLabel->Size = System::Drawing::Size(89, 16);
@@ -169,23 +174,25 @@ namespace injector {
 			this->timer1->Interval = 600;
 			this->timer1->Tick += gcnew System::EventHandler(this, &InjectorForm::timer1_Tick);
 			// 
-			// button1
+			// aboutButton
 			// 
-			this->button1->Location = System::Drawing::Point(248, 8);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(62, 24);
-			this->button1->TabIndex = 10;
-			this->button1->Text = L"About";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &InjectorForm::button1_Click);
+			this->aboutButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->aboutButton->Location = System::Drawing::Point(248, 8);
+			this->aboutButton->Name = L"aboutButton";
+			this->aboutButton->Size = System::Drawing::Size(62, 24);
+			this->aboutButton->TabIndex = 10;
+			this->aboutButton->TabStop = false;
+			this->aboutButton->Text = L"About";
+			this->aboutButton->UseVisualStyleBackColor = true;
+			this->aboutButton->Click += gcnew System::EventHandler(this, &InjectorForm::button1_Click);
 			// 
 			// InjectorForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::Color::LightSteelBlue;
+			this->BackColor = System::Drawing::Color::GreenYellow;
 			this->ClientSize = System::Drawing::Size(314, 201);
-			this->Controls->Add(this->button1);
+			this->Controls->Add(this->aboutButton);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->statusLabel);
 			this->Controls->Add(this->groupBox2);
@@ -263,7 +270,7 @@ private: System::Void processBox1_Click(System::Object^  sender, System::EventAr
 	processBox1->Text = ProcessForm::selection;
 }
 private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-	MessageBoxA(0, "injecTyran\nSimple DLL injector\n\n(C) tyranek 2015", "About...", MB_OK | MB_ICONINFORMATION | MB_TASKMODAL);
+	MessageBoxA(0, "injecTyran\nVersion 0.15\n\n(C) tyranek 2015", "About...", MB_OK | MB_ICONINFORMATION | MB_TASKMODAL);
 }
 };
 }
