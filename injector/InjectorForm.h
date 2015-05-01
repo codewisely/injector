@@ -209,10 +209,7 @@ namespace injector {
 	public: bool alreadyInjected;
 
 private: System::Void libraryBox1_Click(System::Object^  sender, System::EventArgs^  e) {
-
-	this->libraryBox1->Text = "";
 	this->openFileDialog1->ShowDialog();
-
 }
 
 	void OnFileOk(System::Object ^sender, System::ComponentModel::CancelEventArgs ^e);

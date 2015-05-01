@@ -115,8 +115,11 @@ namespace injector {
 		UpdateList(this->listBox1);
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-		selection = listBox1->SelectedItem->ToString();
-		delete this;
+		if (listBox1->SelectedItems->Count < 1) delete this;
+		else {
+			selection = listBox1->SelectedItem->ToString();
+			delete this;
+		}
 	}
 	private: System::Void listBox1_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
 		if (e->KeyChar == (char)0x0D || e->KeyChar == (char)0x20) button1_Click(sender, e);
