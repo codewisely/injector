@@ -237,10 +237,8 @@ private: System::Void injectButton_Click(System::Object^  sender, System::EventA
 		return;
 	}
 
-	if (Inject(this->processBox1->Text, this->libraryBox1->Text) == true) alreadyInjected = true;
-	else {
-		alreadyInjected = false;
-	}
+	if (Inject(this->processBox1->Text, this->libraryBox1->Text)) alreadyInjected = true;
+	else alreadyInjected = false;
 
 }
 
