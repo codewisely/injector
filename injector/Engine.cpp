@@ -64,7 +64,7 @@ bool Inject(System::String^ _procname, System::String^ _dllpath) {
 	}
 
 	LPVOID paramAddr = _valloc(hProc, 0, strlen(dllpath) + 1, MEM_COMMIT, PAGE_READWRITE);
-	volatile bool written = _writemem(hProc, paramAddr, dllpath, strlen(dllpath) + 1, 0);
+	bool written = _writemem(hProc, paramAddr, dllpath, strlen(dllpath) + 1, 0);
 	_remotethread(hProc, 0, 0, (LPTHREAD_START_ROUTINE)_loadlib, paramAddr, 0, 0);
 	_closehandle(hProc);
 
