@@ -102,7 +102,7 @@ namespace injector {
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
 			this->Name = L"ProcessForm";
-			this->Text = L"ProcessForm";
+			this->Text = L"Select a process";
 			this->ResumeLayout(false);
 
 		}
